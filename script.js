@@ -1,0 +1,43 @@
+const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const result = document.getElementById("result");
+const sound = document.getElementById("sound");
+const btn = document.getElementById("search-btn");
+
+btn.addEventListener("click", () => {
+    let inpWord = document.getElementById("inp-word").value;
+    fetch(`${url}${inpWord}`)  
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            result.innerHTML = `
+            <div class="word">
+                    <h3>${inpWord}</h3>
+                    <button onclick="playSound()">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                <div class="details">
+                    <p>${data[0].meanings[0].partOfSpeech}</p>
+                    <p>/${data[0].phonetic}/</p>
+                </div>
+                <p class="word-meaning">
+                   ${data[0].meanings[0].definitions[0].definition}
+                </p>
+                <p class="word-example">
+                    ${data[0].meanings[0].definitions[0].example || ""}
+                </p>`;
+            sound.setAttribute("src", `https:${data[0].phonetics[0].audio}`);
+        })
+        .catch(() => {
+            result.innerHTML = `<h3 class="error">Couldn't Find The Word</h3>`;
+        });
+});
+function playSound() {
+    sound.play();
+}
+
+ 
+//create an English Dictionary using HTML, CSS and Javascript. This fun project is suited for javascript intermediates. For javascript beginners, you can try out other projects that I have here.
+//https://codingartistweb.com/2021/09/dictionary-app-html-css-and-javascript/ 
+//https://www.youtube.com/watch?v=PUkgK7TI0x0
+//The dictionary app consists of a search text field and a search button. The user has to enter the word in the text field and click on the search button. The result displays the word meaning, word pronunciation along with pronunciation audio clip. It also displays word usage for appropriate words. For words where example cannot be provided, the word usage space is hidden.
