@@ -6,3 +6,5 @@ The user has to enter the word in the text field and click on the search button.
 The result displays the word meaning, word pronunciation along with pronunciation audio clip.
 It also displays word usage for appropriate words.
 For words where example cannot be provided, the word usage space is hidden.
+
+https://anshujha404.github.io/Dictionary-app/
